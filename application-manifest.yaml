@@ -20,7 +20,7 @@ spec:
       recurse: true
     path: Project_Portal/k8s
     repoURL: https://github.com/Shinaayo07/argocd-assignment.git
-    targetRevision: main
+    targetRevision: feature
 
   #Adding sync policy for application
   syncPolicy:
