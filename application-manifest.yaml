@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: shina-project-portal
+  namespace: argocd
+
+#Specification for my Application
+spec:
+  #Where to deploy the application
+  destination:
+    namespace: shina-app
+    server: https://kubernetes.default.svc
+  project: default
+
+  #Source of the application, that is the git repository
+  source:
+    directory:
+      exclude: '{*.sh,README.md}'
+      include: '*.yaml'
+      recurse: true
+    path: Project_Portal/k8s
+    repoURL: https://github.com/Shinaayo07/argocd-assignment.git
+    targetRevision: main
+
+  #Adding sync policy for application
+  syncPolicy:
+    automated: false #Disable automated sync
+    prune: true      #Prune resources that are no longer defined in Git
+    syncOptions:
+    - CreateNamespace=true #Create the destination namespace if it doesn't exist
