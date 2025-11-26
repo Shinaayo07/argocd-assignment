@@ -24,7 +24,8 @@ spec:
 
   #Adding sync policy for application
   syncPolicy:
-    automated: false #Disable automated sync
-    prune: true      #Prune resources that are no longer defined in Git
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
     - CreateNamespace=true #Create the destination namespace if it doesn't exist
