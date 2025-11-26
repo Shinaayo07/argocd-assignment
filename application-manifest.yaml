@@ -25,7 +25,6 @@ spec:
   #Adding sync policy for application
   syncPolicy:
     automated:
-      prune: true
-      selfHeal: false
+      enabled: false
     syncOptions:
     - CreateNamespace=true #Create the destination namespace if it doesn't exist
