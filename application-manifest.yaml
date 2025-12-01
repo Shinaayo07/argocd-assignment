@@ -9,7 +9,7 @@ spec:
   #Where to deploy the application
   destination:
     namespace: shina-app
-    server: https://kubernetes.default.svc
+    name: external
   project: default
 
   #Source of the application, that is the git repository
