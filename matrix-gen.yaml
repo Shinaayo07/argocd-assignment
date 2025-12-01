@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: matrix-gen-app
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    # matrix 'parent' generator
+    - matrix:
+        generators:
+          # git generator, 'child' #1
+          - git:
+              repoURL: https://github.com/Shinaayo07/argocd-assignment.git
+              revision: feature
+              directories:
+                - path: source/*
+          # cluster generator, 'child' #2
+          - clusters: {}
+
+  template:
+    metadata:
+      name: '{{.path.basename}}-{{.name}}'
+    spec:
+      project: 'default'
+      source:
+        repoURL: https://github.com/Shinaayo07/argocd-assignment.git
+        targetRevision: feature
+        path: '{{.path.path}}'
+      destination:
+        server: '{{.server}}'
+        namespace: '{{.path.basename}}'
+      #Adding sync policy for application
+      syncPolicy:
+        automated:
+          enabled: false
+        syncOptions:
+          - CreateNamespace=true #Create the destination namespace if it doesn't exist
+    
